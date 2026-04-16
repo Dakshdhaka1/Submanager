@@ -1,0 +1,439 @@
+.dashboard {
+    min-height: 100vh;
+    padding-bottom: 40px;
+    background: var(--bg-primary);
+}
+
+/* Top bar: Title + stats + button in one row */
+.dash-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dash-topbar-left {
+    flex-shrink: 0;
+}
+
+.dash-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+}
+
+/* Inline stat chips */
+.dash-stats-inline {
+    display: flex;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+}
+
+.stat-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.stat-chip-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.stat-chip-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Two-column main layout */
+.dash-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.dash-col-left {
+    position: sticky;
+    top: calc(var(--nav-height) + 24px);
+}
+
+.dash-col-right {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Filter tabs */
+.filter-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 12px;
+}
+
+.filter-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0 4px 8px 4px;
+    position: relative;
+}
+
+.filter-tab:hover {
+    color: var(--text-secondary);
+}
+
+.filter-tab.active {
+    color: var(--text-primary);
+}
+
+.filter-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -13px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--text-primary);
+}
+
+.filter-count {
+    font-size: 0.7rem;
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
+    background: var(--border-subtle);
+    margin-left: 6px;
+    color: var(--text-secondary);
+}
+
+/* Empty State */
+.empty-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    background: transparent;
+    border: 1px dashed var(--border-subtle);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin-top: 12px;
+}
+
+.empty-state-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.empty-state-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+
+.empty-state-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    max-width: 250px;
+    line-height: 1.5;
+}
+
+/* Subscription list — scrollable column */
+.subs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.subs-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.subs-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.subs-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+}
+
+/* Subscription grid (removed, replaced by subs-list) */
+.subs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media (max-width: 900px) {
+    .dash-main {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-topbar {
+        flex-wrap: wrap;
+    }
+
+    .dash-stats-inline {
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .dash-col-left {
+        display: none;
+        /* Hide chart on mobile to prioritize list */
+    }
+
+    .subs-list {
+        max-height: none;
+        /* Let list flow naturally on mobile */
+        overflow-y: visible;
+    }
+}
+
+/* Subscription card - Sleek */
+.sub-card {
+    background: linear-gradient(180deg, rgba(30, 30, 30, 0.9) 0%, rgba(15, 15, 15, 0.95) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sub-card:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: linear-gradient(180deg, rgba(40, 40, 40, 0.95) 0%, rgba(20, 20, 20, 1) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Card internal layout */
+.sub-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.sub-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.sub-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.sub-category {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sub-price-block {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.sub-price-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.sub-price-cycle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* Divider */
+.sub-card-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 18px 0;
+}
+
+/* Bottom row */
+.sub-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub-status-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sub-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.dot-active {
+    background: #34d399;
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.5);
+}
+
+.dot-cancelled {
+    background: #6b7280;
+}
+
+.sub-status-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.label-active {
+    color: #34d399;
+}
+
+.label-cancelled {
+    color: #6b7280;
+}
+
+/* Inline action links */
+.sub-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sub-action-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+}
+
+.sub-action-btn:hover {
+    color: var(--text-primary);
+}
+
+.sub-action-danger {
+    color: #ef4444;
+}
+
+.sub-action-danger:hover {
+    color: #f87171;
+}
+
+/* Chart container */
+.chart-container {
+    background: transparent;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 40px;
+}
+
+.chart-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+/* Form page */
+.form-page {
+    min-height: 100vh;
+    padding-top: calc(var(--nav-height) + 60px);
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    background: var(--bg-primary);
+}
+
+.form-container {
+    width: 100%;
+    max-width: 500px;
+}
+
+.form-card {
+    background: transparent;
+}
+
+.form-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+@media (max-width: 768px) {
+    .dash-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}

@@ -1,0 +1,35 @@
+jwt:
+  secret: bXlTdXBlclNlY3JldEtleUZvckp3dEF1dGhlbnRpY2F0aW9uMjAyNg==
+  expiration: 86400000
+
+
+
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://dakshkumar14d_db_user:123daksh@cluster0.yhhtln4.mongodb.net/submanager_db?appName=Cluster0
+      auto-index-creation: true
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: itachi14dd@gmail.com
+    password: hgdj cckp pwoh oaus
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 419127467437-3sltpbd04vj70j9k8hg81iknuttihe29.apps.googleusercontent.com
+            client-secret: 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
+            scope: email, profile
+

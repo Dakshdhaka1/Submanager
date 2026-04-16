@@ -1,7 +1,7 @@
 package com.submanager.subscriptionmanager.enums;
 
-public class BillingCycle {
-    ACTIVE,
-    CANCELLED
+public enum BillingCycle {
+    MONTHLY,
+    YEARLY
 
 }

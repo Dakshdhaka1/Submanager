@@ -1,7 +1,8 @@
 package com.submanager.subscriptionmanager.enums;
 
-public class Status {
-    MONTHLY,
-    YEARLY
+public enum Status {
+
+    ACTIVE,
+    CANCELLED
 
 }

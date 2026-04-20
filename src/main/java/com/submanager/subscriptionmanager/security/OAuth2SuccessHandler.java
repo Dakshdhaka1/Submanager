@@ -5,6 +5,7 @@ import com.submanager.subscriptionmanager.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -19,6 +20,9 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
+
+    @Value("${app.frontend-url}")
+    private String frontendUrl;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
@@ -51,7 +55,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String username = user.getUsername();
 
         // 5. Redirect to React frontend with token
-        String redirectUrl = "http://localhost/oauth2/redirect?token=" + token + "&username=" + username;
+        String redirectUrl = frontendUrl + "/oauth2/redirect?token=" + token + "&username=" + username;
         response.sendRedirect(redirectUrl);
     }
 }

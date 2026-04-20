@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
 });
 
 // Automatically attach JWT token to every request
@@ -31,6 +31,6 @@ export const getExpenseSummary = () => API.get('/api/subscriptions/summary');
 export const getUpcomingRenewals = (days = 7) => API.get(`/api/subscriptions/renewals?days=${days}`);
 
 // Google OAuth URL
-export const GOOGLE_AUTH_URL = 'http://localhost:8080/oauth2/authorization/google';
+export const GOOGLE_AUTH_URL = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'}/oauth2/authorization/google`;
 
 export default API;

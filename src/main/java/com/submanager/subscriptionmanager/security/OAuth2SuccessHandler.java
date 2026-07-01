@@ -20,6 +20,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Value("${app.frontend-url}")
     private String frontendUrl;
@@ -54,7 +55,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String token = jwtService.generateToken(user);
         String username = user.getUsername();
 
-        // 5. Redirect to React frontend with token
+        // 5. Clean up authorization cookies
+        httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
+
+        // 6. Redirect to React frontend with token
         String redirectUrl = frontendUrl + "/oauth2/redirect?token=" + token + "&username=" + username;
         response.sendRedirect(redirectUrl);
     }

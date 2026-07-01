@@ -35,6 +35,7 @@ public class SecurityConfig {
     private final JwtService jwtService;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final CorsConfigurationSource corsConfigurationSource;
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
 
     @Bean
@@ -65,6 +66,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
+                        .authorizationEndpoint(authorization -> authorization
+                                .authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository)
+                        )
                         .successHandler(oAuth2SuccessHandler)
                 )
                 .sessionManagement(session ->

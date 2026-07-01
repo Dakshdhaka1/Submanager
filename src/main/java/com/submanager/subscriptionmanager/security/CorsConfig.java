@@ -18,7 +18,14 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(frontendUrl));
+        List<String> origins = new java.util.ArrayList<>();
+        if (frontendUrl != null && !frontendUrl.isEmpty()) {
+            origins.add(frontendUrl);
+        }
+        origins.add("http://localhost");
+        origins.add("http://localhost:5173");
+        config.setAllowedOrigins(origins.stream().distinct().toList());
+
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

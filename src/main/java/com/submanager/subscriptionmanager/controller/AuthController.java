@@ -42,6 +42,15 @@ public class AuthController {
             );
         }
 
+        // Check if email already exists
+        if (userRepository.existsByEmail(request.getEmail())) {
+            return ResponseEntity.badRequest().body(
+                    AuthResponse.builder()
+                            .message("Email already in use!")
+                            .build()
+            );
+        }
+
         // Create the user
         User user = User.builder()
                 .name(request.getName())
